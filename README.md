@@ -86,7 +86,7 @@
 
   - Got good results, Here, we didn't use the name, we just use movie-movie similarity matrix by user who just rated these movies
 
-## Modelling + Featurization :
+## Featurization :
 - Featurizing data for regression problem :
   - GAvg : Average rating of all the ratings
   - Similar users rating of this movie:
@@ -98,5 +98,79 @@
   - rating : Rating of this movie by this user.
   - user | movie | GAvg | sur1 | sur2 | sur3 | sur4 | sur5 | smr1 | smr2 | smr3 | smr4 | smr5 | UAvg | MAvg | rating
 
+- Transforming data for Surprise models :-
+  - We can't give raw data (movie, user, rating) to train the model in Surprise library.
+  - They have a saperate format for TRAIN and TEST data, which will be useful for training the models like SVD, KNNBaseLineOnly....etc..,in Surprise.
+
+## Modelling :
+- XGBoost with initial 13 features : 
+    - import xgboost as xgb, 
+    - RMSE :  1.0761851474385373, MAPE :  34.504887593204884
+
+    ![8](https://user-images.githubusercontent.com/54996809/154892017-2c9a6ee3-3da3-4059-8310-508244635c49.png)
+
+    
+- Suprise BaselineModel : 
+    - from surprise import BaselineOnly, 
+    - RMSE : 1.0730330260516174, MAPE : 35.04995544572911
+- XGBoost with initial 13 features + Surprise Baseline predictor :
+    - add our baseline_predicted value as our feature: 
+    - RMSE :  1.0763419061709816, MAPE :  34.491235560745295
+
+    ![9](https://user-images.githubusercontent.com/54996809/154892095-c5540a2e-180a-4fdd-9a14-ca76aaa22402.png)
+
+    
+- Surprise KNN predictors : 
+    - from surprise import KNNBaseline, 
+    - Surprise KNNBaseline with user user similarities : RMSE : 1.0726493739667242, MAPE : 35.02094499698424
+    - Surprise KNNBaseline with movie movie similarities : RMSE : 1.072758832653683, MAPE : 35.02269653015042
+- XGBoost with initial 13 features + Surprise Baseline predictor + KNNBaseline predictor : 
+    - First we will run XGBoost with predictions from both KNN's ( that uses User_User and Item_Item similarities along with our previous features.
+    - Then we will run XGBoost with just predictions form both knn models and preditions from our baseline model.
+    - add the predicted values from both knns to this dataframe
+    - RMSE :  1.0763602465199797, MAPE :  34.48862808016984
+
+    ![10](https://user-images.githubusercontent.com/54996809/154892175-b030727a-8a09-4874-bced-fc27239b447e.png)
+
+
+- Matrix Factorization models using Surprise :
+    - SVD Matrix Factorization User Movie intractions 
+    - from surprise import SVD
+    - Optimization problem with user item interactions and regularization (to avoid overfitting)
+    - RMSE : 1.0726046873826458, MAPE : 35.01953535988152
+-  SVD ++ with implicit feedback :
+    - from surprise import SVDpp
+    - Optimization problem with user item interactions and regularization (to avoid overfitting)
+    - RMSE : 1.0728491944183447
+    - MAPE : 35.03817913919887
+
+- Final models with all features and predictors :-
+    - XgBoost with 13 features + Surprise Baseline + Surprise KNNbaseline + MF Techniques
+    - Preparing Train data
+    - Preparing Test data
+    - add the predicted values from both knns to this dataframe
+    - RMSE :  1.0763580984894978, MAPE :  34.487391651053336
+
+    ![11](https://user-images.githubusercontent.com/54996809/154892326-0a81b222-e9d8-44ac-8d5b-2a1131657eac.png)
+
+
+- XgBoost + Surprise Baseline + Surprise KNNbaseline + MF Techniques :
+    - Here, we don't have 13 features
+    - RMSE :  1.075480663561971, MAPE :  35.01826709436013
+
+    ![12](https://user-images.githubusercontent.com/54996809/154892399-a48d3862-63d5-4edc-a223-bcc114242ec1.png)
+
+- Comparision between all models :
+
+![13](https://user-images.githubusercontent.com/54996809/154892541-860aed95-1412-4844-afd5-da25689ca94d.png)
+
+
+
+
+
+
+
+
+    
 
 
