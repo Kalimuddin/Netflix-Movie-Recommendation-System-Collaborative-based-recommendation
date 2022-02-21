@@ -87,7 +87,16 @@
   - Got good results, Here, we didn't use the name, we just use movie-movie similarity matrix by user who just rated these movies
 
 ## Modelling + Featurization :
-
+- Featurizing data for regression problem :
+  - GAvg : Average rating of all the ratings
+  - Similar users rating of this movie:
+    - sur1, sur2, sur3, sur4, sur5 ( top 5 simiular users who rated that movie.. )
+  - Similar movies rated by this user:
+    - smr1, smr2, smr3, smr4, smr5 ( top 5 simiular movies rated by this movie.. )
+  - UAvg : User AVerage rating
+  - MAvg : Average rating of this movie
+  - rating : Rating of this movie by this user.
+  - user | movie | GAvg | sur1 | sur2 | sur3 | sur4 | sur5 | smr1 | smr2 | smr3 | smr4 | smr5 | UAvg | MAvg | rating
 
 
 
