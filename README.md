@@ -50,7 +50,7 @@
 ![5](https://user-images.githubusercontent.com/54996809/154889642-5c828b82-4afa-47d1-b98d-7d2bd8ce6407.png)
 
 ## Computed User-User Similarity matrices :
-- It is not easy task, Computing User-User Similarity matrix :- It is not easy task unless you have huge Computing Power and lots of time, system could crash or the program stops with Memory Error
+- Computing User-User Similarity matrix :- It is not easy task unless you have huge Computing Power and lots of time, system could crash or the program stops with Memory Error
 
 ![6](https://user-images.githubusercontent.com/54996809/154890125-4d121fcb-dcd8-4f53-9ddb-3ac3b66d62bc.png)
 
